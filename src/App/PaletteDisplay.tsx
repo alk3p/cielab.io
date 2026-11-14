@@ -1,13 +1,13 @@
-import React, { Fragment, useMemo } from "react";
-import { Palette } from "./types";
+import { Fragment, useMemo } from "react";
+import type { Palette } from "./types";
 import {
   rgbToHex,
-  RGB,
   wcagContrastRatio,
   RGB_BLACK,
-  RGB_WHITE
+  RGB_WHITE,
+  type RGB
 } from "../color";
-import { faQuestionCircle } from "@fortawesome/free-regular-svg-icons";
+import { faCircleQuestion } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
@@ -55,7 +55,7 @@ export default function PaletteDisplay({
             </Tooltip>
           }
         >
-          <FontAwesomeIcon className="ml-2" icon={faQuestionCircle} />
+          <FontAwesomeIcon className="ms-2" icon={faCircleQuestion} />
         </OverlayTrigger>
       </div>
       {shades.map((shade, shadeIndex) => (

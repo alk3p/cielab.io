@@ -1,4 +1,4 @@
-import { RGB } from "../color";
+import type { RGB } from "../color";
 
 export interface Palette {
   hues: string[];

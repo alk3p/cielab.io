@@ -1,11 +1,10 @@
 {
   "compilerOptions": {
-    "outDir": "./dist",
-    "strict": true,
-    "module": "es6",
-    "target": "es6",
-    "allowSyntheticDefaultImports": true,
-    "jsx": "react",
-    "moduleResolution": "node"
-  }
+    "target": "ES2022",
+    "jsx": "react-jsx",
+    "noEmit": true,
+    "skipLibCheck": true,
+    "types": ["vite/client"]
+  },
+  "include": ["src", "vite.config.ts"]
 }

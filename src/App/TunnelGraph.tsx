@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import {
   MIN_SRGB_LUMINANCE,
   MAX_SRGB_LUMINANCE,
@@ -9,12 +9,9 @@ import {
   lchToRGB,
   rgbIsDisplayable,
   rgbToLCH,
-  LCH,
-  RGB,
   rgbToHex,
-  wcagContrastRatio,
-  RGB_BLACK,
-  RGB_WHITE
+  type LCH,
+  type RGB
 } from "../color";
 
 interface Props {

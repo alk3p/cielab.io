@@ -1,21 +1,20 @@
-import React, { useState, ChangeEvent, useMemo } from "react";
+import { useState, useMemo, type ChangeEvent } from "react";
 import {
-  RGB,
   rgbToLCH,
   rgbToHex,
   wcagContrastRatio,
   RGB_BLACK,
   RGB_WHITE,
-  hexToRGB
+  type RGB
 } from "../color";
 import TunnelGraph from "./TunnelGraph";
-import { Palette } from "./types";
+import type { Palette } from "./types";
 import ColorEditor from "./ColorEditor";
 import PaletteDisplay from "./PaletteDisplay";
 import { PRESETS } from "./presets";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPalette } from "@fortawesome/free-solid-svg-icons";
-import { faQuestionCircle } from "@fortawesome/free-regular-svg-icons";
+import { faCircleQuestion } from "@fortawesome/free-regular-svg-icons";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Form from "react-bootstrap/Form";
@@ -138,37 +137,40 @@ export default function App() {
   return (
     <>
       <Navbar
+        className="px-3"
         style={{
           backgroundColor: rgbToHex(selectedColorRGB),
           transition: "background-color 0.5s, color 0.5s"
         }}
-        variant={isHeaderTextWhite ? "dark" : "light"}
+        data-bs-theme={isHeaderTextWhite ? "dark" : "light"}
       >
         <Navbar.Brand href="/">
           <FontAwesomeIcon icon={faPalette} />
         </Navbar.Brand>
 
-        <Nav className="mr-auto">
+        <Nav className="me-auto">
           <Nav.Link active href="/">
             cielab.io
           </Nav.Link>
 
           <Nav.Link
-            className="ml-3"
+            className="ms-3"
             href="https://github.com/ucarion/cielab.io"
           >
             About this tool
           </Nav.Link>
 
-          <Form className="ml-3" inline>
+          <Form className="d-flex align-items-center ms-3">
             <Form.Label
-              className={isHeaderTextWhite ? "text-light" : "text-dark"}
+              htmlFor="palette-preset"
+              className={`mb-0 ${isHeaderTextWhite ? "text-light" : "text-dark"}`}
             >
               Load preset
             </Form.Label>
-            <Form.Control
-              as="select"
-              className="ml-3"
+            <Form.Select
+              id="palette-preset"
+              className="ms-3 w-auto"
+              data-bs-theme="light"
               onChange={handlePresetChange}
             >
               <option>Locally saved preset</option>
@@ -179,12 +181,12 @@ export default function App() {
               <option>Segment (Evergreen)</option>
               <option>GitHub (Primer)</option>
               <option>Contentful (Forma 36)</option>
-            </Form.Control>
+            </Form.Select>
           </Form>
 
           {isUsingLocal && (
             <Button
-              className="ml-3"
+              className="ms-3"
               variant={isHeaderTextWhite ? "outline-light" : "outline-dark"}
               onClick={handleSavePalette}
             >
@@ -225,31 +227,22 @@ export default function App() {
                   <Form.Control
                     placeholder="New hue name"
                     value={newHueName}
-                    onChange={(event: any) => setNewHueName(event.target.value)}
+                    onChange={event => setNewHueName(event.target.value)}
                   />
-                  <InputGroup.Append>
-                    <Button onClick={handleAddHue} variant="outline-secondary">
-                      Add Hue
-                    </Button>
-                  </InputGroup.Append>
+                  <Button onClick={handleAddHue} variant="outline-secondary">
+                    Add Hue
+                  </Button>
                 </InputGroup>
 
                 <InputGroup className="mb-3">
                   <Form.Control
                     placeholder="New shade name"
                     value={newShadeName}
-                    onChange={(event: any) =>
-                      setNewShadeName(event.target.value)
-                    }
+                    onChange={event => setNewShadeName(event.target.value)}
                   />
-                  <InputGroup.Append>
-                    <Button
-                      onClick={handleAddShade}
-                      variant="outline-secondary"
-                    >
-                      Add Shade
-                    </Button>
-                  </InputGroup.Append>
+                  <Button onClick={handleAddShade} variant="outline-secondary">
+                    Add Shade
+                  </Button>
                 </InputGroup>
               </>
             )}
@@ -291,7 +284,7 @@ export default function App() {
                       </Tooltip>
                     }
                   >
-                    <FontAwesomeIcon className="ml-2" icon={faQuestionCircle} />
+                    <FontAwesomeIcon className="ms-2" icon={faCircleQuestion} />
                   </OverlayTrigger>
                 </small>
               </h3>
@@ -319,7 +312,7 @@ export default function App() {
                       </Tooltip>
                     }
                   >
-                    <FontAwesomeIcon className="ml-2" icon={faQuestionCircle} />
+                    <FontAwesomeIcon className="ms-2" icon={faCircleQuestion} />
                   </OverlayTrigger>
                 </small>
               </h3>
@@ -347,7 +340,7 @@ export default function App() {
                       </Tooltip>
                     }
                   >
-                    <FontAwesomeIcon className="ml-2" icon={faQuestionCircle} />
+                    <FontAwesomeIcon className="ms-2" icon={faCircleQuestion} />
                   </OverlayTrigger>
                 </small>
               </h3>
@@ -375,7 +368,7 @@ export default function App() {
                       </Tooltip>
                     }
                   >
-                    <FontAwesomeIcon className="ml-2" icon={faQuestionCircle} />
+                    <FontAwesomeIcon className="ms-2" icon={faCircleQuestion} />
                   </OverlayTrigger>
                 </small>
               </h3>
@@ -402,7 +395,7 @@ export default function App() {
                       </Tooltip>
                     }
                   >
-                    <FontAwesomeIcon className="ml-2" icon={faQuestionCircle} />
+                    <FontAwesomeIcon className="ms-2" icon={faCircleQuestion} />
                   </OverlayTrigger>
                 </small>
               </h3>
@@ -429,7 +422,7 @@ export default function App() {
                       </Tooltip>
                     }
                   >
-                    <FontAwesomeIcon className="ml-2" icon={faQuestionCircle} />
+                    <FontAwesomeIcon className="ms-2" icon={faCircleQuestion} />
                   </OverlayTrigger>
                 </small>
               </h3>

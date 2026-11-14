@@ -1,27 +1,26 @@
-import React, {
+import {
   useState,
-  ChangeEvent,
-  KeyboardEvent,
   useEffect,
-  useMemo
+  useMemo,
+  type ChangeEvent,
+  type KeyboardEvent
 } from "react";
 import InputGroup from "react-bootstrap/InputGroup";
 import Form from "react-bootstrap/Form";
 import {
-  RGB,
-  LCH,
   rgbToHex,
-  MAX_SRGB_LUMINANCE,
   hexToRGB,
   rgbIsDisplayable,
   lchToRGB,
   wcagContrastRatio,
   RGB_WHITE,
-  RGB_BLACK
+  RGB_BLACK,
+  type RGB,
+  type LCH
 } from "../color";
 import {
-  faCheckCircle,
-  faTimesCircle
+  faCircleCheck,
+  faCircleXmark
 } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -119,20 +118,17 @@ export default function ColorEditor({
     }
   };
 
-  const handleLCHChange = (
-    event: ChangeEvent<HTMLInputElement>,
-    axis: keyof LCH
-  ) => {
+  const handleLCHChange = (input: string, axis: keyof LCH) => {
     const [setInput, setValid] = {
       l: [setLInput, setLInputValid] as const,
       c: [setCInput, setCInputValid] as const,
       h: [setHInput, setHInputValid] as const
     }[axis];
 
-    setInput(event.target.value);
+    setInput(input);
 
     try {
-      const value = parseFloat(event.target.value);
+      const value = parseFloat(input);
       const lch = { l, c, h, [axis]: value };
       const rgb = lchToRGB(lch);
 
@@ -189,23 +185,23 @@ export default function ColorEditor({
             <div>Small Text</div>
             <div>
               <FontAwesomeIcon
-                icon={contrastRatio > 4.5 ? faCheckCircle : faTimesCircle}
+                icon={contrastRatio > 4.5 ? faCircleCheck : faCircleXmark}
               />
             </div>
             <div>
               <FontAwesomeIcon
-                icon={contrastRatio > 7 ? faCheckCircle : faTimesCircle}
+                icon={contrastRatio > 7 ? faCircleCheck : faCircleXmark}
               />
             </div>
             <div>Large Text</div>
             <div>
               <FontAwesomeIcon
-                icon={contrastRatio > 3 ? faCheckCircle : faTimesCircle}
+                icon={contrastRatio > 3 ? faCircleCheck : faCircleXmark}
               />
             </div>
             <div>
               <FontAwesomeIcon
-                icon={contrastRatio > 4.5 ? faCheckCircle : faTimesCircle}
+                icon={contrastRatio > 4.5 ? faCircleCheck : faCircleXmark}
               />
             </div>
           </div>
@@ -219,9 +215,7 @@ export default function ColorEditor({
         }}
       >
         <InputGroup className="mb-3">
-          <InputGroup.Prepend>
-            <InputGroup.Text>HEX</InputGroup.Text>
-          </InputGroup.Prepend>
+          <InputGroup.Text>HEX</InputGroup.Text>
           <Form.Control
             value={rgbInput}
             onChange={handleRGBChange}
@@ -240,36 +234,30 @@ export default function ColorEditor({
           }}
         >
           <InputGroup className="mb-3">
-            <InputGroup.Prepend>
-              <InputGroup.Text>L</InputGroup.Text>
-            </InputGroup.Prepend>
+            <InputGroup.Text>L</InputGroup.Text>
             <Form.Control
               value={lInput}
-              onChange={(event: any) => handleLCHChange(event, "l")}
+              onChange={event => handleLCHChange(event.target.value, "l")}
               onBlur={handleLCHBlur}
               onKeyPress={handleLCHKeyPress}
             />
           </InputGroup>
 
           <InputGroup className="mb-3">
-            <InputGroup.Prepend>
-              <InputGroup.Text>C</InputGroup.Text>
-            </InputGroup.Prepend>
+            <InputGroup.Text>C</InputGroup.Text>
             <Form.Control
               value={cInput}
-              onChange={(event: any) => handleLCHChange(event, "c")}
+              onChange={event => handleLCHChange(event.target.value, "c")}
               onBlur={handleLCHBlur}
               onKeyPress={handleLCHKeyPress}
             />
           </InputGroup>
 
           <InputGroup className="mb-3">
-            <InputGroup.Prepend>
-              <InputGroup.Text>H</InputGroup.Text>
-            </InputGroup.Prepend>
+            <InputGroup.Text>H</InputGroup.Text>
             <Form.Control
               value={hInput}
-              onChange={(event: any) => handleLCHChange(event, "h")}
+              onChange={event => handleLCHChange(event.target.value, "h")}
               onBlur={handleLCHBlur}
               onKeyPress={handleLCHKeyPress}
             />
